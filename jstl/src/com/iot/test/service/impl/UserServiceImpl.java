@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService{
 		UserInfo ui = null;
 		String json = req.getParameter("param");
 		if(json!=null) {
+			json = "{uiName:"+json+"}";
 			ui = gs.fromJson(json, UserInfo.class);
 		}
 		req.setAttribute("userList", udao.selectUserList(ui));
