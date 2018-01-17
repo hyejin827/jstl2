@@ -7,5 +7,6 @@ String root = request.getContextPath();
 <c:set var="root" value="<%=root%>"/>
 
 <c:forEach items="${menuList}" var="menu">
-	<a href="${root}${menu.mUrl}">${menu.mName}</a><br>
+	<a href="${root}${menu.mUrl}">${menu.mName}</a>
 </c:forEach>
+<br>

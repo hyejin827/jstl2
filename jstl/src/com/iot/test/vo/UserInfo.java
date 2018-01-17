@@ -10,6 +10,7 @@ public class UserInfo {
 	private int ciNo;
 	private String uiRegdate;
 	private String address;
+	private String searchType;
 	
 	public int getUiNo() {
 		return uiNo;
@@ -59,10 +60,16 @@ public class UserInfo {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
 	@Override
 	public String toString() {
 		return "UserInfo [uiNo=" + uiNo + ", uiName=" + uiName + ", uiAge=" + uiAge + ", uiId=" + uiId + ", uiPwd="
-				+ uiPwd + ", ciNo=" + ciNo + ", uiRegdate=" + uiRegdate + ", address=" + address + "]";
+				+ uiPwd + ", ciNo=" + ciNo + ", uiRegdate=" + uiRegdate + ", address=" + address + ", searchType="
+				+ searchType + "]";
 	}
 }

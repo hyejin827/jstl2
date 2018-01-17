@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.iot.test.service.ClassService;
+import com.iot.test.service.CustomerService;
 import com.iot.test.service.MenuService;
 import com.iot.test.service.UserService;
 import com.iot.test.service.impl.ClassServiceImpl;
+import com.iot.test.service.impl.CustomerServiceImpl;
 import com.iot.test.service.impl.MenuServiceImpl;
 import com.iot.test.service.impl.UserServiceImpl;
 
@@ -40,6 +42,9 @@ public class JspServlet extends HttpServlet {
 		}else if(uri.indexOf("class/list")!=-1) {
 			ClassService cs = new ClassServiceImpl();
 			cs.getClassList(req);
+		}else if(uri.indexOf("customer/list")!=-1) {
+			CustomerService cs = new CustomerServiceImpl();
+			cs.setCustomerList(req);
 		}
 		uri = "/WEB-INF" + uri + ".jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(uri);

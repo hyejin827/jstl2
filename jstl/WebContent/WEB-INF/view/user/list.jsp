@@ -15,8 +15,36 @@ String param = request.getParameter("param");
 <body>
 <!-- useBean도 알아봥 -->
 유저리스트<br>
-<form>
-	<input type="text" name="param" value="<%=param%>"> <input type="submit" value="검색">
+<script>
+	function getEl(id){
+		return document.getElementById(id);
+	}
+	function checkValue(){
+		var searchType = getEl("searchType").value.trim();
+		var searchStr = getEl("searchStr").value.trim();
+		
+		if(searchType.length==0){
+			alert("검색종류를 선택해주세요.");
+			getEl("searchType").focus();
+			return false;
+		}
+		if(searchStr.length<2){
+			alert("검색어는 2글자 이상입니다.");
+			getEl("searchStr").focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+<form onsubmit="return checkValue()">
+	<select name="searchType" id="searchType">
+		<option value="">선택</option>
+		<option value="uiName" ${param.searchType eq "uiName" ? "selected":""}>이름</option>
+		<option value="uiAge" ${param.searchType eq "uiAge" ? "selected":""}>나이</option>
+		<option value="address" ${param.searchType eq "address" ? "selected":""}>주소</option>
+	</select>
+	<input type="text" name="searchStr" id="searchStr" value="${param.searchStr}"> 
+	<input type="submit" value="검색">
 </form>
 <table border="1">
 	<tr>
