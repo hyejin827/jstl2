@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.iot.test.common.DBCon;
 import com.iot.test.dao.MenuDAO;
 import com.iot.test.test.DBConTest;
 import com.iot.test.vo.Menu;
@@ -37,6 +38,42 @@ public class MenuDAOImpl implements MenuDAO {
 			e.printStackTrace();
 		}
 		return menuList;
+	}
+
+	@Override
+	public Menu selectMenu(Menu m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int insertMenu(Menu m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateMenu(Menu m) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deleteMenu(Menu m) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = DBCon.getCon();
+		String sql = "delete from menu where mname=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, m.getmName());
+			
+			return ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 }

@@ -14,14 +14,14 @@ import com.iot.test.vo.Customer;
 public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
-	public List<Customer> selectCustomerList(String orderStr, String orderDesc) {
+	public List<Customer> selectCustomerList(String orderStr) {
 		List<Customer> customerList = new ArrayList<Customer>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "select * from customer";
 		if(orderStr!=null) {
-			sql += " order by " + orderStr + " " + orderDesc;
+			sql += " order by " + orderStr;
 		}
 		con = DBCon.getCon();
 		try {

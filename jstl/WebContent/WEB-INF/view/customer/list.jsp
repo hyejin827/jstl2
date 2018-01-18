@@ -12,21 +12,15 @@
 </head>
 <body>
 <%
-String orderStrs = request.getParameter("orderStrs");
-String orderTypes = request.getParameter("orderTypes");
-if(orderStrs==null){
-	orderStrs = "cutomerid, customername, city, country";
-	orderTypes = "asc, asc, asc, asc";
-}
-String params = "&orderStrs="+orderStrs + "&orderTypes="+orderTypes;
+String orderStr = "customerid asc, customername asc, city asc, country asc";
 %>
 고객리스트
 <table border="1" cellspacing="0" cellpadding="0">
 	<tr>
-		<th><a href="${root}/view/customer/list?order=customerid<%=params%>">CustomerID</a></th>
-		<th><a href="${root}/view/customer/list?order=customername<%=params%>">CustomerName</a></th>
-		<th><a href="${root}/view/customer/list?order=city<%=params%>">City</a></th>
-		<th><a href="${root}/view/customer/list?order=country<%=params%>">Country</a></th>
+		<th><a href="${root}/view/customer/list?order=customerid&orderStr=<%=orderStr%>">CustomerID</a></th>
+		<th><a href="${root}/view/customer/list?order=customername&orderStr=<%=orderStr%>">CustomerName</a></th>
+		<th><a href="${root}/view/customer/list?order=city&orderStr=<%=orderStr%>">City</a></th>
+		<th><a href="${root}/view/customer/list?order=country&orderStr=<%=orderStr%>">Country</a></th>
 	</tr>
 	<c:if test="${customerList eq null}">
 		<tr>

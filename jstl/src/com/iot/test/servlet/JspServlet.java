@@ -45,6 +45,9 @@ public class JspServlet extends HttpServlet {
 		}else if(uri.indexOf("customer/list")!=-1) {
 			CustomerService cs = new CustomerServiceImpl();
 			cs.setCustomerList(req);
+		}else if(uri.indexOf("menu/list")!=-1) {
+			MenuService ms = new MenuServiceImpl();
+			ms.setMenuList(req);
 		}
 		uri = "/WEB-INF" + uri + ".jsp";
 		RequestDispatcher rd = req.getRequestDispatcher(uri);
