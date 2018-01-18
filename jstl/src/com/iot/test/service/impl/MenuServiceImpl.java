@@ -23,21 +23,36 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public void insertMenu(HttpServletRequest req) {
-		// TODO Auto-generated method stub
+		Menu m = new Menu();
+		String insertN = req.getParameter("insertN");
+		String insertU = req.getParameter("insertU");
+		String insertD = req.getParameter("insertD");
+		m.setmName(insertN);
+		m.setmUrl(insertU);
+		m.setmDesc(insertD);
+		req.setAttribute("menuList", mdao.insertMenu(m));
 
 	}
 
 	@Override
 	public void updateMenu(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-
+		Menu m = new Menu();
+		int updateNum = Integer.parseInt(req.getParameter("updateNum"));
+		String updateN = req.getParameter("updateN");
+		String updateU = req.getParameter("updateU");
+		String updateD = req.getParameter("updateD");
+		
+		m.setmNum(updateNum);
+		m.setmName(updateN);
+		m.setmUrl(updateU);
+		m.setmDesc(updateD);
+		req.setAttribute("menuList", mdao.updateMenu(m));
 	}
 
 	@Override
 	public void deleteMenu(HttpServletRequest req) {
 		Menu m = new Menu();
 		String deleteStr = req.getParameter("deleteStr");
-		System.out.println(deleteStr);
 		m.setmName(deleteStr);
 		req.setAttribute("menuList", mdao.deleteMenu(m));
 	}

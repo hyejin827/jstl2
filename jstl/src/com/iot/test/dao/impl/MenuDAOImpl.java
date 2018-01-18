@@ -48,13 +48,42 @@ public class MenuDAOImpl implements MenuDAO {
 
 	@Override
 	public int insertMenu(Menu m) {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = DBCon.getCon();
+		String sql = "insert into menu(mName, mUrl, mDesc) values(?,?,?)";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, m.getmName());
+			ps.setString(2, m.getmUrl());
+			ps.setString(3, m.getmDesc());
+			
+			return ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
 	@Override
 	public int updateMenu(Menu m) {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = DBCon.getCon();
+		String sql = "update menu set mname=?, murl=?, mdesc=? where mnum=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, m.getmName());
+			ps.setString(2, m.getmUrl());
+			ps.setString(3, m.getmDesc());
+			ps.setInt(4, m.getmNum());
+			
+			return ps.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
