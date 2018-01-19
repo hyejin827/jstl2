@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.iot.test.common.DBCon;
+import com.iot.test.common.DBUtil;
 import com.iot.test.dao.MenuDAO;
 import com.iot.test.test.DBConTest;
 import com.iot.test.vo.Menu;
@@ -15,27 +16,43 @@ import com.iot.test.vo.Menu;
 public class MenuDAOImpl implements MenuDAO {
 
 	@Override
-	public List<Menu> selectMenuList() {
+	public List<Menu> selectMenuList(Menu m) {
 		List<Menu> menuList = new ArrayList<Menu>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select * from menu order by mnum";
+		String sql = "select * from menu where 1=1";
+		if(m!=null) {
+			sql += " and ";
+			sql += m.getmSearchType();
+			sql += " like ?";
+		}
 		//con = DBCon.getCon();
-		con = DBConTest.getCon();
+		con = DBCon.getCon();
 		try {
 			ps = con.prepareStatement(sql);
+			if(m!=null) {
+				String searchStr = m.getmName();
+				if(m.getmSearchType().equals("mUrl")) {
+					searchStr = m.getmUrl();
+				}else if(m.getmSearchType().equals("mDesc")) {
+					searchStr = m.getmDesc();
+				}
+				ps.setString(1, "%" + searchStr + "%");
+			}
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				Menu m = new Menu();
-				m.setmNum(rs.getInt("mnum"));
-				m.setmName(rs.getString("mname"));
-				m.setmUrl(rs.getString("murl"));
-				m.setmDesc(rs.getString("mdesc"));
-				menuList.add(m);
+				Menu m2 = new Menu();
+				m2.setmNum(rs.getInt("mnum"));
+				m2.setmName(rs.getString("mname"));
+				m2.setmUrl(rs.getString("murl"));
+				m2.setmDesc(rs.getString("mdesc"));
+				menuList.add(m2);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			DBUtil.closeAll(rs, con, ps);
 		}
 		return menuList;
 	}
@@ -62,6 +79,9 @@ public class MenuDAOImpl implements MenuDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			DBUtil.close(con);
+			DBUtil.close(ps);
 		}
 		return 0;
 	}
@@ -83,6 +103,9 @@ public class MenuDAOImpl implements MenuDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			DBUtil.close(con);
+			DBUtil.close(ps);
 		}
 		return 0;
 	}
@@ -101,6 +124,9 @@ public class MenuDAOImpl implements MenuDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			DBUtil.close(con);
+			DBUtil.close(ps);
 		}
 		return 0;
 	}

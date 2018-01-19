@@ -12,7 +12,21 @@ public class MenuServiceImpl implements MenuService {
 
 	@Override
 	public void setMenuList(HttpServletRequest req) {
-		req.setAttribute("menuList", mdao.selectMenuList());
+		Menu m = null;
+		String searchType = req.getParameter("searchType");
+		String searchStr = req.getParameter("searchStr");
+		if(searchType!=null) {
+			m = new Menu();
+			m.setmSearchType(searchType);
+			if(searchType.equals("mName")) {
+				m.setmName(searchStr);
+			}else if(searchType.equals("mUrl")) {
+				m.setmUrl(searchStr);
+			}else {
+				m.setmDesc(searchStr);
+			}
+		}
+		req.setAttribute("menuList", mdao.selectMenuList(m));
 	}
 
 	@Override

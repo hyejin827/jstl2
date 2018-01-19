@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="customer">
+  <!-- sql/customer.xml -->
+  	<select id="selectCustomer" parameterType="map" resultType="com.iot.test.vo.Customer">
+  		select * from customer order by ${str};
+  	</select>
+  	<!-- ${str}:사용자가 프로그램에서 동적으로 만들때 -->
+  	<update id="updateCustomer" parameterType="customer">
+  	<!-- parameterType은 mybatis-conf에서 alias쓴거! -->
+  		update customer 
+  		set customerName = #{customerName}
+  		where customerID = #{customerID}
+  		<!-- getCustomerName 이렇게 함수를 부르는거임 -->
+  	</update>
+  	<!-- #은 바인딩. 자동으로 ''붙음 -->
+  </mapper>

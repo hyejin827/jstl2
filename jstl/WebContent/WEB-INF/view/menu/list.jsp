@@ -7,8 +7,43 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<%
+String param = request.getParameter("param");
+%>
 <body>
 메뉴리스트
+
+<script>
+	function getEl(id){
+		return document.getElementById(id);
+	}
+	function checkValue(){
+		var searchType = getEl("searchType").value.trim();
+		var searchStr = getEl("searchStr").value.trim();
+		
+		if(searchType.length==0){
+			alert("검색종류를 선택해주세요.");
+			getEl("searchType").focus();
+			return false;
+		}
+		if(searchStr.length<2){
+			alert("검색어는 2글자 이상입니다.");
+			getEl("searchStr").focus();
+			return false;
+		}
+		return true;
+	}
+</script>
+<form onsubmit="return checkValue()">
+	<select name="searchType" id="searchType">
+		<option value="">선택</option>
+		<option value="mName" ${param.searchType eq "mName" ? "selected":""}>Menu Name</option>
+		<option value="mUrl" ${param.searchType eq "mUrl" ? "selected":""}>Menu URL</option>
+		<option value="mDesc" ${param.searchType eq "mDesc" ? "selected":""}>Menu Desc</option>
+	</select>
+	<input type="text" name="searchStr" id="searchStr" value="${param.searchStr}"> 
+	<input type="submit" value="검색">
+</form>
 
 <table border="1" cellspacing="0" cellpadding="0">
 	<tr>

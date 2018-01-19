@@ -5,28 +5,48 @@ import javax.servlet.http.HttpServletRequest;
 import com.iot.test.dao.CustomerDAO;
 import com.iot.test.dao.impl.CustomerDAOImpl;
 import com.iot.test.service.CustomerService;
+import com.iot.test.vo.Customer;
 
 public class CustomerServiceImpl implements CustomerService {
 	private CustomerDAO cdao = new CustomerDAOImpl();
 	@Override
 	public void setCustomerList(HttpServletRequest req) {
-		String str = req.getParameter("orderStr");
-		String order = req.getParameter("order");
+		Customer c = null;
+		String searchType = req.getParameter("searchType");
+		String searchStr = req.getParameter("searchStr");
 		
-		if(str!=null) {
-			int idx = str.indexOf(","); //13
-			String str2 =  str.substring(0,idx+1);
-			if(str2.indexOf("asc")!=-1) {
-				str2 = str2.replace("asc", "desc");
+		if(searchType!=null) {
+			c = new Customer();
+			c.setSearchType(searchType);
+			if(searchType.equals("customerName")) {
+				c.setCustomerName(searchStr);
+			}else if(searchType.equals("city")) {
+				c.setCity(searchStr);
 			}else {
-				str2 = str2.replace("desc", "asc");
+				c.setCountry(searchStr);
 			}
-			str = str.replace(str2, "");
-			str = str2 + str;
-			req.setAttribute("customerList", cdao.selectCustomerList(str));
+			req.setAttribute("customerList", cdao.selectCustomerList(c));
 		}
-		System.out.println(cdao.selectCustomerList(str));
-		//System.out.println(req.getParameter("order"));
 		req.setAttribute("customerList", cdao.selectCustomerList(req.getParameter("order")));
+	}
+	@Override
+	public void setCustomer(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void insertCustomer(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void updateCustomer(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void deleteCustomer(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		
 	}
 }

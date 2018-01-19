@@ -10,17 +10,51 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
 <%
-String orderStr = "customerid asc, customername asc, city asc, country asc";
+String param = request.getParameter("param");
 %>
+<body>
 고객리스트
+
+<script>
+function getEl(id){
+	return document.getElementById(id);
+}
+function checkValue(){
+	var searchType = getEl("searchType").value.trim(); 
+	var searchStr = getEl("searchStr").value.trim();
+	
+	if(searchType.length==0){
+		alert("검색 종류 선택행");
+		getEl("searchType").focus();
+		return false;
+	}
+	if(searchStr.length<2){
+		alert("2글자 이상 검색행");
+		getEl("searchStr").focus();
+		return false;
+	}
+	return true;
+}
+</script>
+
+<form onsubmit="return checkValue()">
+	<select name="searchType" id="searchType">
+		<option value="">선택</option>
+		<option value="customerName" ${param.searchType eq "customerName" ? "selected":""}>고객이름</option>
+		<option value="city" ${param.searchType eq "city" ? "selected":""}>도시</option>
+		<option value="country" ${param.searchType eq "country" ? "selected":"" }>나라</option>
+	</select>
+	<input type="text" name="searchStr" id="searchStr" value="${param.searchStr}">
+	<input type="submit" value="검색">
+</form>
+
 <table border="1" cellspacing="0" cellpadding="0">
 	<tr>
-		<th><a href="${root}/view/customer/list?order=customerid&orderStr=<%=orderStr%>">CustomerID</a></th>
-		<th><a href="${root}/view/customer/list?order=customername&orderStr=<%=orderStr%>">CustomerName</a></th>
-		<th><a href="${root}/view/customer/list?order=city&orderStr=<%=orderStr%>">City</a></th>
-		<th><a href="${root}/view/customer/list?order=country&orderStr=<%=orderStr%>">Country</a></th>
+		<th><a href="${root}/view/customer/list?order=customerid">CustomerID</a></th>
+		<th><a href="${root}/view/customer/list?order=customername">CustomerName</a></th>
+		<th><a href="${root}/view/customer/list?order=city">City</a></th>
+		<th><a href="${root}/view/customer/list?order=country">Country</a></th>
 	</tr>
 	<c:if test="${customerList eq null}">
 		<tr>

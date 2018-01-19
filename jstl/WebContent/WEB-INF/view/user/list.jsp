@@ -46,6 +46,7 @@ String param = request.getParameter("param");
 	<input type="text" name="searchStr" id="searchStr" value="${param.searchStr}"> 
 	<input type="submit" value="검색">
 </form>
+
 <table border="1">
 	<tr>
 		<th>이름</th>

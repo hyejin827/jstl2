@@ -5,6 +5,7 @@ public class Customer {
 	private String customerName;
 	private String city;
 	private String country;
+	private String searchType;
 	
 	public int getCustomerID() {
 		return customerID;
@@ -31,9 +32,15 @@ public class Customer {
 		this.country = country;
 	}
 	
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
 	@Override
 	public String toString() {
 		return "Customer [customerID=" + customerID + ", customerName=" + customerName + ", city=" + city + ", country="
-				+ country + "]";
+				+ country + ", searchType=" + searchType + "]";
 	}
 }
