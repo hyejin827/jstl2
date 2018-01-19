@@ -14,7 +14,6 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer c = null;
 		String searchType = req.getParameter("searchType");
 		String searchStr = req.getParameter("searchStr");
-		
 		if(searchType!=null) {
 			c = new Customer();
 			c.setSearchType(searchType);
@@ -26,8 +25,9 @@ public class CustomerServiceImpl implements CustomerService {
 				c.setCountry(searchStr);
 			}
 			req.setAttribute("customerList", cdao.selectCustomerList(c));
+		}else {
+			req.setAttribute("customerList", cdao.selectCustomerList(req.getParameter("order")));
 		}
-		req.setAttribute("customerList", cdao.selectCustomerList(req.getParameter("order")));
 	}
 	@Override
 	public void setCustomer(HttpServletRequest req) {
@@ -36,17 +36,34 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 	@Override
 	public void insertCustomer(HttpServletRequest req) {
-		// TODO Auto-generated method stub
+		Customer c = new Customer();
+		String insertName = req.getParameter("insertName");
+		String insertCity = req.getParameter("insertCity");
+		String insertCountry = req.getParameter("insertCountry");
+		c.setCustomerName(insertName);
+		c.setCity(insertCity);
+		c.setCountry(insertCountry);
+		req.setAttribute("customerList", cdao.insertCustomer(c));
 		
 	}
 	@Override
 	public void updateCustomer(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-		
+		Customer c = new Customer();
+		int updateNum = Integer.parseInt(req.getParameter("updateNum"));
+		String updateName = req.getParameter("updateName");
+		String updateCity = req.getParameter("updateCity");
+		String updateCountry = req.getParameter("updateCountry");
+		c.setCustomerID(updateNum);
+		c.setCustomerName(updateName);
+		c.setCity(updateCity);
+		c.setCountry(updateCountry);
+		req.setAttribute("customerList", cdao.updateCustomer(c));
 	}
 	@Override
 	public void deleteCustomer(HttpServletRequest req) {
-		// TODO Auto-generated method stub
-		
+		Customer c = new Customer();
+		String deleteStr = req.getParameter("deleteStr");
+		c.setCustomerName(deleteStr);
+		req.setAttribute("customerList", cdao.deleteCustomer(c));
 	}
 }

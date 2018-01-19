@@ -70,5 +70,25 @@ function checkValue(){
 		</tr>
 	</c:forEach>
 </table>
+
+<form>
+	<input type="text" name="deleteStr" id="deleteStr" placeholder="삭제할 이름">
+	<input type="submit" value="삭제">
+</form>
+
+<form>
+	<input type="text" name="insertName" id="insertName" placeholder="Customer Name">
+	<input type="text" name="insertCity" id="insertCity" placeholder="City">
+	<input type="text" name="insertCountry" id="insertCountry" placeholder="Country">
+	<input type="submit" value="추가">
+</form>
+
+<form>
+	<input type="text" size="6" name="updateNum" placeholder="수정할 번호">
+	<input type="text" name="updateName" placeholder="Customer Name">
+	<input type="text" name="updateCity" placeholder="City">
+	<input type="text" name="updateCountry" placeholder="Country">
+	<input type="submit" value="수정">
+</form>
 </body>
 </html>

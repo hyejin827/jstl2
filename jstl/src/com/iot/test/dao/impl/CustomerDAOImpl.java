@@ -60,13 +60,30 @@ public class CustomerDAOImpl implements CustomerDAO {
 		try {
 			ps = con.prepareStatement(sql);
 			if(c!=null) {
-				
+				String searchStr = c.getCustomerName();
+				if(c.getSearchType().equals("city")) {
+					searchStr = c.getCity();
+				}else if(c.getSearchType().equals("country")) {
+					searchStr = c.getCountry();
+				}
+				ps.setString(1, "%" + searchStr + "%");
+			}
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				Customer c2 = new Customer();
+				c2.setCustomerID(rs.getInt("customerID"));
+				c2.setCustomerName(rs.getString("customername"));
+				c2.setCity(rs.getString("city"));
+				c2.setCountry(rs.getString("country"));
+				customerList.add(c2);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			DBUtil.closeAll(rs, con, ps);
 		}
-		return null;
+		return customerList;
 	}
 
 	@Override
@@ -77,19 +94,68 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Override
 	public int insertCustomer(Customer c) {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = DBCon.getCon();
+		String sql = "insert into customer(customername, city, country) values(?,?,?)";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, c.getCustomerName());
+			ps.setString(2, c.getCity());
+			ps.setString(3, c.getCountry());
+			
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(con);
+			DBUtil.close(ps);
+		}
 		return 0;
 	}
 
 	@Override
 	public int updateCustomer(Customer c) {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = DBCon.getCon();
+		String sql = "update customer set customername=?, city=?, country=? where customerid=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, c.getCustomerName());
+			ps.setString(2, c.getCity());
+			ps.setString(3, c.getCountry());
+			ps.setInt(4, c.getCustomerID());
+			
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(con);
+			DBUtil.close(ps);
+		}
 		return 0;
 	}
 
 	@Override
-	public int deleteCustomer(Customer c) {
-		// TODO Auto-generated method stub
+		public int deleteCustomer(Customer c) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		con = DBCon.getCon();
+		String sql = "delete from customer where customername=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, c.getCustomerName());
+			
+			return ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			DBUtil.close(con);
+			DBUtil.close(ps);
+		}
 		return 0;
 	}
 

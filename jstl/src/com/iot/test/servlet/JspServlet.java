@@ -44,6 +44,13 @@ public class JspServlet extends HttpServlet {
 			cs.getClassList(req);
 		}else if(uri.indexOf("customer/list")!=-1) {
 			CustomerService cs = new CustomerServiceImpl();
+			if(req.getParameter("deleteStr")!=null) {
+				cs.deleteCustomer(req);
+			}else if(req.getParameter("insertName")!=null) {
+				cs.insertCustomer(req);
+			}else if(req.getParameter("updateNum")!=null) {
+				cs.updateCustomer(req);
+			}
 			cs.setCustomerList(req);
 		}else if(uri.indexOf("menu/list")!=-1) {
 			MenuService ms = new MenuServiceImpl();
