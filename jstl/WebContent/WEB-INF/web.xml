@@ -16,6 +16,15 @@
   	<url-pattern>/view/*</url-pattern> <!-- /view앞에 contextPath 안 써야됨 -->
   </servlet-mapping>
   
+  <servlet>
+  	<servlet-name>CustomerServlet</servlet-name>
+  	<servlet-class>com.iot.test.servlet.CustomerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CustomerServlet</servlet-name>
+  	<url-pattern>/customer/*</url-pattern> <!-- /view앞에 contextPath 안 써야됨 -->
+  </servlet-mapping>
+  
   <resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>jdbc/IOT</res-ref-name>

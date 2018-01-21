@@ -35,6 +35,7 @@ public class JspServlet extends HttpServlet {
 		String uri = req.getRequestURI();
 		String root = req.getContextPath();
 		uri = uri.replace(root, "");
+		
 		ms.setMenuList(req);
 		if(uri.indexOf("user/list")!=-1) {
 			UserService us = new UserServiceImpl();

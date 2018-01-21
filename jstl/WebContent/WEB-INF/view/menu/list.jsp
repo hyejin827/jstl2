@@ -56,12 +56,11 @@ String param = request.getParameter("param");
 	<c:forEach items="${menuList}" var="m">
 	
 	<tr>
-		<form action="/view/update">
+		<form>
 			<td>${m.mNum}</td>
 			<td>${m.mName}</td>
 			<td>${m.mUrl}</td>
 			<td>${m.mDesc}</td>
-			<td><input type="submit" value="수정" ></td>
 		</form>
 	</tr>
 	</c:forEach>
